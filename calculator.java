@@ -10,12 +10,12 @@ public class calculator implements ActionListener {
     JTextField textField;
     JButton[] numberButtons= new JButton[10];
     JButton[] functionButtons=new JButton[13];
-    JButton addButton,subButton,mulButton,divButton,negButton,powButton,sqrButton,modButton,hypotButton;
+    JButton addButton,subButton,mulButton,divButton,negButton,powButton,sqrButton,modButton, powTwoButton;
     JButton decButton,equButton,delButton,clrButton;
     JPanel panel;
     JLabel produce;
     Font font=new Font("Time",Font.BOLD,30);
-    Color lightBlu=new Color(0x4DD0E1),subBlue=new Color(0x26C6DA),mainBlue=new Color(0x00BCD4);
+    Color white =new Color(0xfffffff), orange =new Color(0xffc400);
     double num1=0,num2=0,result=0;
     char operator;
 
@@ -25,41 +25,41 @@ public class calculator implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,625);
         frame.setResizable(false);
-        frame.getContentPane().setBackground(new Color(0x263238));
+        frame.getContentPane().setBackground(new Color(0x0000));
         frame.setLayout(null);
 
         textField=new JTextField();
         textField.setBounds(50,25,300,50);
         textField.setFont(font);
-        textField.setBackground(new Color(0x90A4AE));
+        textField.setBackground(new Color(0xffffff));
         textField.setEditable(false);
 
         addButton=new JButton("+");
-        addButton.setBackground(subBlue);
+        addButton.setBackground(orange);
         subButton=new JButton("-");
-        subButton.setBackground(subBlue);
+        subButton.setBackground(orange);
         mulButton=new JButton("*");
-        mulButton.setBackground(subBlue);
+        mulButton.setBackground(orange);
         divButton=new JButton("÷");
-        divButton.setBackground(subBlue);
+        divButton.setBackground(orange);
         decButton=new JButton(".");
-        decButton.setBackground(lightBlu);
+        decButton.setBackground(white);
         equButton=new JButton("=");
         equButton.setBackground(new Color(0x4CAF50));
         delButton=new JButton("Del");
         delButton.setBackground(Color.red);
         clrButton=new JButton("Clr");
-        clrButton.setBackground(new Color(0x607D8B));
+        clrButton.setBackground(new Color(0xffffff));
         negButton=new JButton("+/-");
-        negButton.setBackground(subBlue);
+        negButton.setBackground(orange);
         powButton=new JButton("^");
-        powButton.setBackground(mainBlue);
-        sqrButton=new JButton("s");
-        sqrButton.setBackground(mainBlue);
+        powButton.setBackground(orange);
+        sqrButton=new JButton("√");
+        sqrButton.setBackground(orange);
         modButton=new JButton("%");
-        modButton.setBackground(mainBlue);
-        hypotButton=new JButton("h");
-        hypotButton.setBackground(mainBlue);
+        modButton.setBackground(orange);
+        powTwoButton =new JButton("x²");
+        powTwoButton.setBackground(orange);
 
 
 
@@ -75,7 +75,7 @@ public class calculator implements ActionListener {
         functionButtons[9] = powButton;
         functionButtons[10] = sqrButton;
         functionButtons[11] = modButton;
-        functionButtons[12] = hypotButton;
+        functionButtons[12] = powTwoButton;
 
         for (int i = 0; i < 13; i++) {
             functionButtons[i].addActionListener(this);
@@ -87,7 +87,7 @@ public class calculator implements ActionListener {
             numberButtons[j].addActionListener(this);
             numberButtons[j].setFont(font);
             numberButtons[j].setFocusable(false);
-            numberButtons[j].setBackground(lightBlu);
+            numberButtons[j].setBackground(white);
         }
 
         negButton.setBounds(50,505,82,50);
@@ -97,9 +97,9 @@ public class calculator implements ActionListener {
         panel=new JPanel();
         panel.setBounds(50,100,300,375);
         panel.setLayout(new GridLayout(5,4,10,10));
-        panel.setBackground(new Color(0x263238));
+        panel.setBackground(new Color(0x00000));
 
-        panel.add(hypotButton);
+        panel.add(powTwoButton);
         panel.add(modButton);
         panel.add(powButton);
         panel.add(sqrButton);
@@ -181,10 +181,10 @@ public class calculator implements ActionListener {
             operator = '%';
             textField.setText("");
         }
-        if (e.getSource() == hypotButton){
+        if (e.getSource() == powTwoButton){
             num1 = Double.parseDouble(textField.getText());
-            operator = 'h';
-            textField.setText("");
+            double powTwo=Math.pow(num1,2);
+            textField.setText(String.valueOf(powTwo));
         }
         if (e.getSource() == equButton){
             num2 = Double.parseDouble(textField.getText());
@@ -204,9 +204,6 @@ public class calculator implements ActionListener {
                     break;
                 case '^':
                     result=Math.pow(num1,num2);
-                    break;
-                case 'h':
-                    result=Math.hypot(num1,num2);
                     break;
                 case '%':
                     result=num1%num2;
